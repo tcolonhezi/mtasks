@@ -24,7 +24,7 @@ function ensureAuthenticated(
     const { role, sub } = jwt.verify(token, env.JWT_SECRET) as CustomJwtPayload;
 
     request.user = {
-      id: sub,
+      id: parseInt(sub),
       role: role,
     };
 
