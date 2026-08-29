@@ -43,9 +43,9 @@ class UserController {
         },
       });
 
-      const { password: _, ...insertedUserWithoutPassowrd } = insertedUser;
+      const { password: _, ...insertedUserWithoutPassword } = insertedUser;
 
-      return response.status(201).json(insertedUserWithoutPassowrd);
+      return response.status(201).json(insertedUserWithoutPassword);
     } catch (error) {
       if (error instanceof z.ZodError) {
         return next(error);

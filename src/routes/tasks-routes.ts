@@ -12,5 +12,28 @@ tasksRoutes.post(
   verifyAuthorization(["ADMIN", "MEMBER"]),
   tasksController.create,
 );
+tasksRoutes.get(
+  "/",
+  verifyAuthorization(["ADMIN", "MEMBER"]),
+  tasksController.index,
+);
+
+tasksRoutes.patch(
+  "/:taskId",
+  verifyAuthorization(["ADMIN", "MEMBER"]),
+  tasksController.update,
+);
+
+tasksRoutes.patch(
+  "/:taskId/assign",
+  verifyAuthorization(["ADMIN"]),
+  tasksController.assignTask,
+);
+
+tasksRoutes.delete(
+  "/:taskId",
+  verifyAuthorization(["ADMIN", "MEMBER"]),
+  tasksController.delete,
+);
 
 export { tasksRoutes };
