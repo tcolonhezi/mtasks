@@ -4,7 +4,7 @@
   "description": "Uma API para gerenciamento de tarefas com NodeJS.",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "tsup src !src/generated",
+    "build": "tsup",
     "start": "node dist/server.js",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest"
   },
