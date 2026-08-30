@@ -4,24 +4,28 @@ import { AppError } from "../middlewares/error-handling.js";
 import { prisma } from "../database/prisma.js";
 
 class TeamsMembersController {
-  async create(request: Request, response: Response, next: NextFunction) {
+  async addMember(request: Request, response: Response, next: NextFunction) {
     try {
       const bodySchema = z.object({
-        team_id: z.coerce.number().int().positive(),
-        user_id: z.coerce.number().int().positive(),
+        userId: z.coerce.number().int().positive(),
       });
 
-      const { team_id, user_id } = bodySchema.parse(request.body);
+      const paramsSchema = z.object({
+        teamId: z.coerce.number().int().positive(),
+      });
+
+      const { userId } = bodySchema.parse(request.body);
+      const { teamId } = paramsSchema.parse(request.params);
 
       const user = await prisma.user.findUnique({
         where: {
-          id: user_id,
+          id: userId,
         },
       });
 
       const team = await prisma.team.findUnique({
         where: {
-          id: team_id,
+          id: teamId,
         },
         include: {
           teamMembers: true,
@@ -38,7 +42,7 @@ class TeamsMembersController {
 
       if (
         team.teamMembers.find((t) => {
-          return t.userId === user_id;
+          return t.userId === userId;
         })
       ) {
         return next(new AppError("User is already on the team.", 409));
@@ -46,8 +50,8 @@ class TeamsMembersController {
 
       const teamMember = await prisma.teamMember.create({
         data: {
-          teamId: team_id,
-          userId: user_id,
+          teamId,
+          userId,
         },
       });
 
@@ -62,17 +66,17 @@ class TeamsMembersController {
 
   async delete(request: Request, response: Response, next: NextFunction) {
     try {
-      const bodySchema = z.object({
-        team_id: z.coerce.number().int().positive(),
-        user_id: z.coerce.number().int().positive(),
+      const paramsSchema = z.object({
+        teamId: z.coerce.number().int().positive(),
+        userId: z.coerce.number().int().positive(),
       });
 
-      const { team_id, user_id } = bodySchema.parse(request.body);
+      const { teamId, userId } = paramsSchema.parse(request.params);
 
       const teamMember = await prisma.teamMember.findFirst({
         where: {
-          teamId: team_id,
-          userId: user_id,
+          teamId: teamId,
+          userId: userId,
         },
       });
 

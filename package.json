@@ -6,7 +6,7 @@
     "dev": "tsx watch src/server.ts",
     "build": "tsup src !src/generated",
     "start": "node dist/server.js",
-    "test": "NODE_OPTIONS=--experimental-vm-modules jest"
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest"
   },
   "keywords": [],
   "author": "Thiago Pereira Colonhezi",
@@ -22,6 +22,7 @@
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^26.2.0",
     "@types/supertest": "^7.2.1",
+    "cross-env": "^10.1.0",
     "dotenv": "^17.4.2",
     "prisma": "^7.9.1",
     "supertest": "^7.2.2",

@@ -14,7 +14,7 @@ class TasksController {
     try {
       const bodySchema = z.object({
         title: z.string().max(200),
-        description: z.string(),
+        description: z.string().optional(),
         status: z.enum(TaskStatus).default("PENDING"),
         priority: z.enum(TaskPriority).default("LOW"),
         assignedTo: z.number().int().positive(),

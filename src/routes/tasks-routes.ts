@@ -7,11 +7,7 @@ const tasksRoutes = Router();
 const tasksController = new TasksController();
 
 tasksRoutes.use(ensureAuthenticated);
-tasksRoutes.post(
-  "/",
-  verifyAuthorization(["ADMIN", "MEMBER"]),
-  tasksController.create,
-);
+tasksRoutes.post("/", verifyAuthorization(["ADMIN"]), tasksController.create);
 tasksRoutes.get(
   "/",
   verifyAuthorization(["ADMIN", "MEMBER"]),
