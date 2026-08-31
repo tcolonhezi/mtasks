@@ -2,7 +2,7 @@
 
 Gerenciador de tarefas por times, com autenticação JWT e controle de acesso por papel (`ADMIN` / `MEMBER`).
 
-**Deploy:** [[LINK DEPLOY]]
+**Deploy:** https://mtasks.onrender.com/
 
 ## Stack
 
